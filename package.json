@@ -1,0 +1,21 @@
+{
+  "name": "sag-api",
+  "version": "0.0.1",
+  "description": "API do Sistema acadêmico gamificado",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "npx tsup src",
+    "start": "nodejs dist/index.cjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.12.7",
+    "tsup": "^8.0.2",
+    "tsx": "^4.7.2",
+    "typescript": "^5.4.4"
+  }
+}
