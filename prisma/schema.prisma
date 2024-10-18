@@ -3,12 +3,45 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+enum STATUS {
+  PENDENTE
+  EM_PROGRESSO
+  CONCLUIDO
+}
+
+model users {
+  id         Int       @id @default(autoincrement())
+  email      String?   @unique
+  username   String    @unique
+  password   String
+  name       String?
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  report     reports[]
+  cargo      String?
+}
+
+model reports {
+  id         Int      @id @default(autoincrement())
+  user_id    Int
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  user       users    @relation(fields: [user_id], references: [id])
+  tasks      tasks[]
+}
+
+model tasks {
+  id         Int      @id @default(autoincrement())
+  descricao  String?
+  status     STATUS   @default(PENDENTE)
+  data_final DateTime
+  report_id  Int
+  data       DateTime @default(now())
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  report     reports  @relation(fields: [report_id], references: [id])
 }
